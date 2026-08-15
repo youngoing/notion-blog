@@ -1,0 +1,44 @@
+---
+import * as interfaces from "@/lib/interfaces.ts";
+import { getNotionColorToTailwindColor } from "@/utils/style-helpers";
+import RichText from "@/components/notion-blocks/RichText.astro";
+import NotionBlocks from "@/components/NotionBlocks.astro";
+
+export interface Props {
+	block: interfaces.Block;
+	renderChildren?: boolean;
+	setId?: boolean;
+}
+
+const { block, renderChildren = true, setId = true } = Astro.props;
+
+const paragraph = block.Paragraph!;
+const hasChildren = paragraph.Children && paragraph.Children.length > 0;
+const Tag = hasChildren && renderChildren ? "div" : "p";
+---
+
+<Tag
+	class:list={[
+		"notion-text",
+		{
+			[`${getNotionColorToTailwindColor(paragraph.Color)} rounded-sm px-1`]:
+				paragraph.Color &&
+				!["default", "default_background", "default-background"].includes(paragraph.Color),
+		},
+	]}
+	id={setId ? block.Id : undefined}
+>
+	{
+		paragraph.RichTexts.map((richText) => (
+			<RichText richText={richText} blockID={block.Id} block={block} />
+		))
+	}
+	{paragraph.RichTexts.length === 0 && <br />}
+	{
+		paragraph.Children && hasChildren && renderChildren && (
+			<div class="pl-6">
+				<NotionBlocks blocks={paragraph.Children} setId={setId} renderChildren={renderChildren} />
+			</div>
+		)
+	}
+</Tag>

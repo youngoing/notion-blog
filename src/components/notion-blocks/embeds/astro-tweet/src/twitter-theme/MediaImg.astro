@@ -1,0 +1,11 @@
+---
+interface Props {
+	src: string;
+	alt: string;
+	class?: string | undefined;
+	draggable?: boolean;
+	loading?: "eager" | "lazy";
+}
+---
+
+<img {...Astro.props} />

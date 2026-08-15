@@ -1,0 +1,32 @@
+---
+import { ENABLE_LIGHTBOX } from "@/constants";
+import Icon from "@/components/ui/Icon.astro";
+export interface Props {
+	url: URL;
+	caption: string | undefined;
+}
+
+const { url, caption } = Astro.props;
+---
+
+<div class="relative">
+	{/* Icon for triggering lightbox, positioned at the bottom right corner */}
+	{
+		ENABLE_LIGHTBOX && (
+			<a
+				href={url.toString()}
+				data-description={caption}
+				class="embedglightbox media-expand-icon right-4 bottom-4"
+				aria-label="Click to expand"
+			>
+				<Icon name={"expand"} class="inline h-6 w-6" aria-hidden="true" />
+			</a>
+		)
+	}
+	<iframe
+		allowtransparency="true"
+		class="lazyload embed-media-box"
+		loading="lazy"
+		data-src={url.toString()}
+		title={caption}></iframe>
+</div>

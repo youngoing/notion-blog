@@ -1,0 +1,69 @@
+---
+import type { SiteMeta } from "@/types";
+import BaseHead from "@/components/layout/BaseHead.astro";
+import Header from "@/components/layout/Header.astro";
+import Footer from "@/components/layout/Footer.astro";
+import SkipLink from "@/components/ui/SkipLink.astro";
+import { siteInfo } from "@/siteInfo";
+import { BIBTEX_CITATIONS_ENABLED, CITATIONS, ENABLE_LIGHTBOX } from "@/constants";
+import { adjustedFootnotesConfig } from "@/lib/notion/client";
+interface Props {
+	meta: SiteMeta;
+}
+const {
+	meta: {
+		title = siteInfo.title,
+		description = siteInfo.description,
+		ogImage,
+		articleDate,
+		author,
+		hasMarkdownAlternate,
+	},
+} = Astro.props;
+---
+
+<html lang={siteInfo.lang}>
+	<head>
+		<BaseHead
+			title={title}
+			description={description}
+			ogImage={ogImage}
+			articleDate={articleDate}
+			author={author}
+			hasMarkdownAlternate={hasMarkdownAlternate}
+		/>
+	</head>
+	<body class="max-w-3xl print:max-w-full">
+		<SkipLink />
+		<Header />
+		<main id="main" class="lg:w-[125%]">
+			<slot />
+		</main>
+		<Footer />
+		<script src="../scripts/print.ts"></script>
+		{ENABLE_LIGHTBOX && <script src="../scripts/lightbox.ts" />}
+		<script src="../scripts/popover.ts"></script>
+		{
+			((adjustedFootnotesConfig &&
+				adjustedFootnotesConfig["in-page-footnotes-settings"]?.[
+					"show-in-margin-on-large-screens"
+				]) ||
+				(BIBTEX_CITATIONS_ENABLED &&
+					CITATIONS?.["extract-and-process-bibtex-citations"]?.[
+						"show-in-margin-on-large-screens"
+					])) && <script src="../scripts/margin-notes.ts" />
+		}
+		<script src="../scripts/datatables.ts"></script>
+		<script src="../scripts/post-interactions.ts"></script>
+		<script>
+			// Only load the Pagefind highlight bundle when arriving from a search result
+			// (i.e. the URL actually carries the highlight param). Otherwise this fetched
+			// and parsed pagefind-highlight.js on every single page view for nothing.
+			if (!import.meta.env.DEV && new URLSearchParams(window.location.search).has("highlight")) {
+				const highlightScript = `${import.meta.env.BASE_URL.replace(/\/$/, "")}/pagefind/pagefind-highlight.js`;
+				await import(/* @vite-ignore */ highlightScript);
+				new window.PagefindHighlight({ highlightParam: "highlight" });
+			}
+		</script>
+	</body>
+</html>
