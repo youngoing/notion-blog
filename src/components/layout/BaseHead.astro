@@ -69,6 +69,10 @@ const useGiscus =
 {/* Apply the theme before first paint to prevent a flash of the wrong theme (FOUC). */}
 <script is:inline>
 	(() => {
+		const language = localStorage.getItem("language") || "zh";
+		document.documentElement.dataset.language = language;
+		document.documentElement.lang = language === "zh" ? "zh-CN" : "en";
+
 		const getThemePreference = () => {
 			if (typeof localStorage !== "undefined" && localStorage.getItem("theme")) {
 				return localStorage.getItem("theme");

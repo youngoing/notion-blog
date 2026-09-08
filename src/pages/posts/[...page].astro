@@ -39,20 +39,20 @@ const paginationProps = {
 	...(page.url.prev && {
 		prevUrl: {
 			url: getNavLink(page.url.prev),
-			text: "Previous Posts",
+		text: "",
 		},
 	}),
 	...(page.url.next && {
 		nextUrl: {
 			url: getNavLink(page.url.next),
-			text: "Next Posts",
+		text: "",
 		},
 	}),
 };
 ---
 
 <PageLayout meta={meta}>
-	<h1 class="title mb-6">Posts</h1>
+	<h1 class="title mb-6"><span data-language-zh="文章" data-language-en="Posts">文章</span></h1>
 	<div class="listing-grid">
 		<section aria-label="Blog post list" class="col-span-3 print:col-span-full">
 			{
@@ -79,7 +79,7 @@ const paginationProps = {
 				<aside class="col-span-3 sm:col-span-1 print:hidden">
 					<h2 class="listing-section-heading">
 						<Icon class="h-6 w-6" name={"tag-multiple"} aria-hidden="true" focusable="false" />
-						Tags
+						<span data-language-zh="标签" data-language-en="Tags">标签</span>
 					</h2>
 					<ul class="flex flex-wrap gap-2">
 						{uniqueTags.map((tag) => (
@@ -102,7 +102,7 @@ const paginationProps = {
 					</ul>
 					<span class="mt-4 block sm:text-end">
 						<a class="view-all-link" href={getNavLink("/tags/")} aria-label="View all tags">
-							View all
+							<span data-language-zh="查看全部" data-language-en="View all">查看全部</span>
 							<Icon class="h-4 w-4" name={"next"} aria-hidden="true" focusable="false" />
 						</a>
 					</span>

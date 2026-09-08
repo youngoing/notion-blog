@@ -6,6 +6,7 @@ import { siteInfo } from "@/site.config";
 import { getNavLink, getNotionImage, normalizeNavPath } from "@/lib/blog-helpers";
 import Icon from "@/components/ui/Icon.astro";
 import ThemeIcon from "@/components/ui/ThemeIcon.astro";
+import LanguageToggle from "@/components/ui/LanguageToggle.astro";
 import { isNotionHostedIconUrl } from "@/lib/notion/client";
 
 const menuLinks = await getMenu();
@@ -39,7 +40,7 @@ const rss_path = getNavLink("/rss.xml");
 	<div class="flex sm:flex-col">
 		<a
 			href={getNavLink("/")}
-			class="inline-flex items-center grayscale transition-[filter] duration-200 ease-out hover:filter-none sm:relative sm:inline-block"
+			class="inline-flex items-center sm:relative sm:inline-block"
 			aria-current={currentPath === "/" ? "page" : false}
 		>
 			{
@@ -80,7 +81,7 @@ const rss_path = getNavLink("/rss.xml");
 				)
 			}
 		</a>
-		<nav id="navigation-menu" class="nav-menu" aria-label="Main menu">
+		<nav id="navigation-menu" class="nav-menu" aria-label="主菜单 / Main menu">
 			{
 				menuLinks.map((link) => (
 					<a
@@ -105,18 +106,19 @@ const rss_path = getNavLink("/rss.xml");
 				><Icon
 					name={"rss"}
 					class="hover:text-accent h-7 w-7 transition-colors duration-150 ease-out"
-					aria-label="Open RSS Link"
+					aria-label="打开 RSS 链接 / Open RSS link"
 				/></a
 			>
 		</div>
 		<Search />
+		<LanguageToggle />
 		<ThemeIcon />
 		<mobile-button class="flex items-center">
 			<button
 				id="toggle-navigation-menu"
 				class="group relative ms-4 h-7 w-7 cursor-pointer sm:invisible sm:hidden"
 				type="button"
-				aria-label="Open main menu"
+				aria-label="打开主菜单 / Open main menu"
 				aria-expanded="false"
 				aria-haspopup="menu"
 			>

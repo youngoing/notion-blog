@@ -13,7 +13,7 @@ const collections = await getCollectionsWDesc();
 ---
 
 <PageLayout meta={meta}>
-	<h1 class="title mb-6">Collections</h1>
+	<h1 class="title mb-6"><span data-language-zh="合集" data-language-en="Collections">合集</span></h1>
 	<ul class="space-y-4">
 		{
 			collections!.map(({ name, description }) => (

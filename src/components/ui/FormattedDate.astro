@@ -10,8 +10,13 @@ type Props = HTMLAttributes<"time"> & {
 const { date, dateTimeOptions, ...attrs } = Astro.props;
 
 const postDate = getFormattedDate(date, dateTimeOptions);
+const dateValue = getDateTimeValue(date);
+const formatOptions = JSON.stringify({
+	...(dateTimeOptions || { day: "numeric", month: "short", year: "numeric" }),
+	timeZone: /^\d{4}-\d{2}-\d{2}$/.test(String(date)) ? "UTC" : undefined,
+});
 ---
 
-<time datetime={getDateTimeValue(date)} {...attrs}>
+<time datetime={dateValue} data-date-value={dateValue} data-date-options={formatOptions} {...attrs}>
 	{postDate}
 </time>

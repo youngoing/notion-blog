@@ -5,14 +5,14 @@ import PageLayout from "@/layouts/Base.astro";
 import img404 from "@/assets/404-Error-with-a-cute-animal-amico.svg";
 
 const meta = {
-	title: "Oops! You found a missing page!",
-	description: "Oops! It looks like this page is lost in space!",
+	title: "页面未找到 / Page Not Found",
+	description: "页面似乎迷失在宇宙中 / This page appears to be lost in space",
 };
 ---
 
 <PageLayout meta={meta}>
-	<h1 class="title mb-6">404 | Oops something went wrong</h1>
-	<p class="mb-8">Please use the navigation to find your way back</p>
+	<h1 class="title mb-6"><span data-language-zh="404 | 页面出错了" data-language-en="404 | Oops, something went wrong">404 | 页面出错了</span></h1>
+	<p class="mb-8"><span data-language-zh="请使用导航返回" data-language-en="Please use the navigation to find your way back">请使用导航返回</span></p>
 	<div class="my-4 grid justify-center">
 		<Image loading="eager" src={img404} alt="A cat is lost!" />
 	</div>

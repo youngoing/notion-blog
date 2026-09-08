@@ -1,0 +1,59 @@
+<language-toggle>
+	<button type="button" class="theme-toggle-btn language-toggle-btn" aria-label="切换到英文 / Switch to English">
+		<span data-language-label>EN</span>
+	</button>
+</language-toggle>
+
+<script is:inline>
+	(() => {
+		const root = document.documentElement;
+		const button = document.querySelector(".language-toggle-btn");
+		if (!(button instanceof HTMLButtonElement)) return;
+
+		const applyLanguage = (language) => {
+			root.lang = language === "zh" ? "zh-CN" : "en";
+			root.dataset.language = language;
+			document.querySelectorAll("[data-language-zh][data-language-en]").forEach((element) => {
+				const text = language === "zh" ? element.dataset.languageZh : element.dataset.languageEn;
+				if (text !== undefined) element.textContent = text;
+			});
+			document.querySelectorAll("time[data-date-value]").forEach((element) => {
+				const value = element.getAttribute("data-date-value");
+				if (!value) return;
+				const options = JSON.parse(element.getAttribute("data-date-options") || "{}");
+				const date = new Date(value);
+				if (!Number.isNaN(date.getTime())) {
+					element.textContent = new Intl.DateTimeFormat(language === "zh" ? "zh-CN" : "en-US", options).format(date);
+				}
+			});
+			document.querySelectorAll("site-search").forEach((search) => {
+				const compact = window.matchMedia("(max-width: 640px)").matches;
+				const key = compact ? "compactSearchPlaceholder" : "searchPlaceholder";
+				const suffix = language === "zh" ? "" : "En";
+				const placeholder = search.dataset[`${key}${suffix}`];
+				if (placeholder) {
+					search.querySelector("pagefind-input")?.setAttribute("placeholder", placeholder);
+					const loading = search.querySelector(".search-loading-input-text");
+					if (loading) loading.textContent = placeholder;
+				}
+			});
+			button.querySelector("[data-language-label]").textContent = language === "zh" ? "EN" : "中";
+			button.setAttribute(
+				"aria-label",
+				language === "zh" ? "切换到英文 / Switch to English" : "切换到中文 / Switch to Chinese",
+			);
+		};
+
+		const initialLanguage = localStorage.getItem("language") || "zh";
+		if (document.readyState === "loading") {
+			document.addEventListener("DOMContentLoaded", () => applyLanguage(initialLanguage), { once: true });
+		} else {
+			applyLanguage(initialLanguage);
+		}
+		button.addEventListener("click", () => {
+			const language = root.dataset.language === "zh" ? "en" : "zh";
+			localStorage.setItem("language", language);
+			applyLanguage(language);
+		});
+	})();
+</script>

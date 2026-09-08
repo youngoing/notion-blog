@@ -1,6 +1,6 @@
 const dateOptions = {
 	date: {
-		locale: "en",
+		locale: "zh-CN",
 		options: {
 			day: "numeric",
 			month: "short",
@@ -115,7 +115,7 @@ export function getFormattedDate(
 
 export function getFormattedDateWithTime(date: string | number | Date) {
 	if (isDateOnlyString(date)) {
-		return new Intl.DateTimeFormat("en-US", {
+		return new Intl.DateTimeFormat("zh-CN", {
 			year: "numeric",
 			month: "short",
 			day: "numeric",
@@ -141,7 +141,7 @@ export function getFormattedDateWithTime(date: string | number | Date) {
 		...(showTime && { hour: "2-digit", minute: "2-digit", hour12: true }),
 	};
 
-	const formattedDate = ObjDate.toLocaleString("en-US", options);
+	const formattedDate = ObjDate.toLocaleString("zh-CN", options);
 	return formattedDate;
 }
 

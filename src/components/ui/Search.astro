@@ -8,8 +8,10 @@ import { getImage, Image } from "astro:assets";
 const baseUrl = import.meta.env.BASE_URL;
 const pagefindBundlePath = `${baseUrl.replace(/\/$/, "")}/pagefind/`;
 const gotoIndexUrl = `${baseUrl.replace(/\/$/, "")}/search-pages.json`;
-const searchPlaceholder = "Tip: Press ⌘K or ^K to open search, or / to go to a page";
-const compactSearchPlaceholder = "Search, or / to go to a page";
+	const searchPlaceholder = "提示：按 ⌘K 或 ^K 搜索，按 / 前往页面";
+	const searchPlaceholderEn = "Press ⌘K or ^K to search, or / to go to a page";
+	const compactSearchPlaceholder = "搜索，或按 / 前往页面";
+	const compactSearchPlaceholderEn = "Search, or / to go to a page";
 const pinnedPost = (await getAllPosts()).find((post) => post.Pinned && !post.Slug.startsWith("_"));
 const pinnedIcon = pinnedPost?.Icon;
 const pinnedIconEmoji = pinnedIcon && "Emoji" in pinnedIcon ? pinnedIcon.Emoji : "";
@@ -29,7 +31,9 @@ try {
 	id="search"
 	class="ms-auto"
 	data-search-placeholder={searchPlaceholder}
+	data-search-placeholder-en={searchPlaceholderEn}
 	data-compact-search-placeholder={compactSearchPlaceholder}
+	data-compact-search-placeholder-en={compactSearchPlaceholderEn}
 >
 	{
 		import.meta.env.DEV ? (
@@ -117,8 +121,8 @@ try {
 											alt=""
 										/>
 										<div class="webtrotion-search-empty-state-copy">
-											<p class="webtrotion-search-empty-state-title">No results found</p>
-											<p>Try a different term or clear a filter to see more.</p>
+											<p class="webtrotion-search-empty-state-title"><span data-language-zh="未找到结果" data-language-en="No results found">未找到结果</span></p>
+											<p><span data-language-zh="请尝试其他关键词，或清除筛选条件。" data-language-en="Try a different term or clear a filter to see more.">请尝试其他关键词，或清除筛选条件。</span></p>
 										</div>
 									</div>
 								</section>
@@ -130,7 +134,7 @@ try {
 										aria-controls="webtrotion-search-preview-panel"
 										tabindex="-1"
 									>
-										<span class="webtrotion-search-preview-handle-label">Preview</span>
+										<span class="webtrotion-search-preview-handle-label" data-language-zh="预览" data-language-en="Preview">预览</span>
 										<Icon
 											class="webtrotion-search-preview-handle-chevron"
 											name="chevron-down"
@@ -153,27 +157,27 @@ try {
 									<kbd class="webtrotion-search-arrow-key">▲</kbd>
 									<kbd class="webtrotion-search-arrow-key">▼</kbd>
 								</>{" "}
-								Navigate
+														<span data-language-zh="导航" data-language-en="Navigate">导航</span>
 							</span>
 							<span>
-								<kbd class="webtrotion-search-arrow-key">▶</kbd> Matches
+									<kbd class="webtrotion-search-arrow-key">▶</kbd> <span data-language-zh="匹配项" data-language-en="Matches">匹配项</span>
 							</span>
 							<span>
-								<kbd class="webtrotion-search-symbol-key">⏎</kbd> Open
+									<kbd class="webtrotion-search-symbol-key">⏎</kbd> <span data-language-zh="打开" data-language-en="Open">打开</span>
 							</span>
 							<span>
 								<kbd class="webtrotion-search-platform-modifier">⌘</kbd>
-								<kbd class="webtrotion-search-symbol-key">/</kbd> Search
+									<kbd class="webtrotion-search-symbol-key">/</kbd> <span data-language-zh="搜索" data-language-en="Search">搜索</span>
 							</span>
 							<span>
 								<>
 									<kbd class="webtrotion-search-platform-modifier">⌘</kbd>
 									<kbd class="webtrotion-search-symbol-key">⌫</kbd>
 								</>{" "}
-								Clear
+									<span data-language-zh="清除" data-language-en="Clear">清除</span>
 							</span>
 							<span>
-								<kbd class="webtrotion-search-symbol-key">Esc</kbd> Close
+									<kbd class="webtrotion-search-symbol-key">Esc</kbd> <span data-language-zh="关闭" data-language-en="Close">关闭</span>
 							</span>
 						</div>
 					</pagefind-modal-footer>

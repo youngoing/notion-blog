@@ -65,7 +65,7 @@ const getAuthorLinkInfo = (author: AuthorProperty) => {
 {
 	shouldRender && (
 		<div class:list={["flex flex-wrap items-center gap-1", className]}>
-			<span class={compact ? "text-xs" : "text-sm"}>By</span>
+			<span class={compact ? "text-xs" : "text-sm"} data-language-zh="作者" data-language-en="By">作者</span>
 			{effectiveAuthors.map((author, index) => {
 				const linkInfo = getAuthorLinkInfo(author);
 

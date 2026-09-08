@@ -13,13 +13,13 @@ export const siteInfo: SiteConfig = {
 	title: siteTitle,
 	description: siteDescription,
 	author: AUTHOR,
-	lang: "en",
+	lang: "zh-CN",
 	homePageSlug: HOME_PAGE_SLUG,
 	// Meta property, found in src/components/BaseHead.astro L:42
-	ogLocale: "en",
+	ogLocale: "zh_CN",
 	// Date.prototype.toLocaleDateString() parameters, found in src/utils/date.ts.
 	date: {
-		locale: "en",
+		locale: "zh-CN",
 		options: {
 			day: "numeric",
 			month: "short",

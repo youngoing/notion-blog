@@ -64,7 +64,7 @@ const socialLinks = mapSocialLinks(SOCIALS);
 	socialLinks && socialLinks.length > 0 && (
 		<>
 			<div class="flex flex-wrap items-center gap-x-4 print:hidden">
-				<p>Find me on</p>
+			<p data-language-zh="在这里找到我" data-language-en="Find me on">在这里找到我</p>
 				<ul class="flex flex-1 items-center gap-x-2 sm:flex-initial">
 					{socialLinks.map(({ link, name, friendlyName, isWebmention }) => (
 						<li class="flex">
@@ -101,7 +101,7 @@ const socialLinks = mapSocialLinks(SOCIALS);
 			</div>
 			<div class="hidden print:block print:w-full">
 				<hr class="mb-4" />
-				<p class="text-left font-bold">Find me on:</p>
+			<p class="text-left font-bold" data-language-zh="在这里找到我：" data-language-en="Find me on:">在这里找到我：</p>
 				<ul>
 					{socialLinks.map(({ link, friendlyName }) => (
 						<li class="flex">

@@ -22,13 +22,13 @@ const { prevUrl, nextUrl } = Astro.props;
 						aria-hidden="true"
 						focusable="false"
 					/>
-					{prevUrl.text ? prevUrl.text : "Previous"}
+					{prevUrl.text ? prevUrl.text : <span data-language-zh="上一页" data-language-en="Previous">上一页</span>}
 				</a>
 			)}
 			{nextUrl && (
 				<a class="next-link inline-flex items-center gap-1" href={nextUrl.url} data-astro-prefetch>
 					{nextUrl.srLabel && <span class="sr-only">{nextUrl.srLabel}</span>}
-					{nextUrl.text ? nextUrl.text : "Next"}
+					{nextUrl.text ? nextUrl.text : <span data-language-zh="下一页" data-language-en="Next">下一页</span>}
 					<Icon
 						class="pagination-next-icon h-5 w-5"
 						name={"next"}
